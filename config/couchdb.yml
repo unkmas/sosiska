@@ -1,0 +1,19 @@
+
+#default: &default
+  #validation_framework: :active_model # optional
+  #split_design_documents_per_view: true # optional
+  #default_language = :erlang # optional
+
+#development:
+#  <<: *default
+#  database: sosiska
+#test:
+#  <<: *default
+#  database: test_db_name
+#production:
+#  <<: *default
+#  database: <%= ENV['DB_NAME'] %>
+development:
+  protocol: 'http'
+  host: 127.0.0.1
+  port: 5984

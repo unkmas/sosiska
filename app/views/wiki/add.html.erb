@@ -1,0 +1,7 @@
+<%= form_tag('save') do %>
+	
+	Name: <%= text_field_tag( :name) %> <br />
+	Title:<%= text_field_tag( :title) %> <br />
+	Text: <%= text_area_tag( :text, "", :size => "50x100") %><br />
+	<%= submit_tag "Submit" %>
+<% end %>

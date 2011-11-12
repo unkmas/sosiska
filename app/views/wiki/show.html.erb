@@ -1,0 +1,16 @@
+<table>
+	<tr>
+		<td style="width:20%">
+		<%= @list.html_safe %>
+		</td>
+
+		<td style="width:5%"></td>
+		<%# cache params[:sections] do %>
+		<td>
+			<% @wiki.id %> <br />
+			<h1> <%= @wiki.title %></h1> <br />
+			<%= @wiki.text.html_safe %><br />
+		</td>
+		<%# end %>
+	</tr>
+</table>

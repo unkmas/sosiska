@@ -1,0 +1,5 @@
+<%= form_tag('update') do %>
+	<%= text_field_tag( :title, @wiki.title) %> <br />
+	<%= text_area_tag( :text, @wiki.text, :size => "100x100") %><br />
+	<%= submit_tag "Submit" %>
+<% end %>
