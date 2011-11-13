@@ -7,9 +7,12 @@ include Singleton
 		p "-----------------------------------------------"
 		@articles = Wiki.by_title
 		@tree = Tree::TreeNode.new('root','')
-		@articles.each do |a|
 
+		#creating tree
+		@articles.each do |a|
+			# add article to cash
 			Rails.cache.write(a.id,a.title)
+
 			array = a.id.split('/')
 			@cur_branch = @tree
 
@@ -21,8 +24,7 @@ include Singleton
 			end
 		  @cur_branch.content = "<a href='/#{a.id}'>#{a.title}</a>"	
 		end
-		#@tree['1'] <<Tree::TreeNode.new('1')
-		@tree.print_tree
+
 	end	
 	
 	def get_node(path)
@@ -53,7 +55,6 @@ include Singleton
 		id = path + "/" + name
 		get_node(path) << Tree::TreeNode.new(name,"<a href='/#{path}'>#{title}</a>")
 		Rails.cache.write(id, title)
-		#expire_cash(id)
 	end		
 
 end

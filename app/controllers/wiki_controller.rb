@@ -20,19 +20,24 @@ caches_page :show
 
 	def update
 		@wiki = Wiki.get(params[:sections])
-		@wiki.title = params[:title]
+
+		# if new title, clear cash
+		if( @wiki.title != params[:title])
+			@wiki.title = params[:title]
+			expire_nodes(@wiki.id)
+		end
+
 		@wiki.text = decode(params[:text])
 		@wiki.save
 
 		expire_page(:action => 'show', :sections => params[:sections])
 		redirect_to "/" + params[:sections]
-		#render "show"
 	end
 
 	def save	
-		if(!params[:sections].empty?)
+		if(!params[:sections].empty?) 
 			@id = params[:sections] + "/" + params[:name]
-		else
+		else # root path
 			@id = params[:name]
 		end
 		text = decode(params[:text])
@@ -40,7 +45,9 @@ caches_page :show
 		@wiki = Wiki.new(:title => params[:title], :text => text , :id => @id)
 		@wiki.save
 
+		# clear cash
 		expire_nodes(@id)
+		# add new node to a tree
 		tree = Mtree.instance
 		tree.add_node(params[:sections], params[:name],params[:title] )
 		
@@ -49,6 +56,7 @@ caches_page :show
 
 private
 
+  
   def exist_filter
   	if(!params[:sections].empty?)
     	if(!Rails.cache.exist?(params[:sections]))
@@ -57,6 +65,7 @@ private
   	end
   end
 
+  # Removing cash of all parents of current node
 	def expire_nodes(path)
 		arr = path.split('/')
 		arr.reverse.each do |arr|
