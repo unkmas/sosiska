@@ -1,6 +1,6 @@
 Sosiska::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
-  config.action_controller.page_cache_directory = RAILS_ROOT + "/public/cache"
+  config.action_controller.page_cache_directory = RAILS_ROOT + "/public"
   # Code is not reloaded between requests
   config.cache_classes = true
 

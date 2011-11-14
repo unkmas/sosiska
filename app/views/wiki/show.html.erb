@@ -9,7 +9,7 @@
 		<td>
 			<% @wiki.id %> <br />
 			<h1> <%= @wiki.title %></h1> <br />
-			<%= @wiki.text.html_safe %><br />
+			<%= simple_format(@wiki.text.html_safe) %><br />
 		</td>
 		<%# end %>
 	</tr>
